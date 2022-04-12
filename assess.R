@@ -102,7 +102,7 @@ assess_and_compare_files <- function(lineage_str,file_paths){
                          MC212=MC212_files,
                          MC191=MC191_files,
                          MC194=MC194_files)
-  names(tracking_files) <- c(lineage_str,"MC212","MC191","MC194")
+  names(tracking_files) <- c(lineage_str,"MC212\n(n=11)","MC191\n(n=58)","MC194\n(n=10)")
   mdf <- tracking_files %>%
     purrr::map_dfr(assess_files,.id="lineage") 
   
@@ -135,7 +135,7 @@ assess_and_compare_files <- function(lineage_str,file_paths){
     labs(x="Maximum laziness",y="Empirical CDF",color="Lineage") + 
     theme(legend.position="bottom")
   lazy_plt 
-  ggsave(here::here("plots/laziness_comparison.eps"),width=210,height=100,units="mm")
+  #ggsave(here::here("plots/laziness_comparison.eps"),width=210,height=100,units="mm")
   
   directional_correlation_df <- tracking_files %>%
     purrr::map_dfr(function(x) {purrr::map_dfr(x,compute_directional_correlation_statistic,.id="cell")},.id="lineage") 
@@ -158,8 +158,8 @@ assess_and_compare_files <- function(lineage_str,file_paths){
          y="z position (um)",
          color="Directional\ncorrelation ")
   p1 | p2 
-  ggsave(here::here("plots/directional_correlation_comparison.eps"),
-         width=210,height=100,units="mm")
+  #ggsave(here::here("plots/directional_correlation_comparison.eps"),
+  #       width=210,height=100,units="mm")
   
   # bad_oscillators_MC212_df <- purrr::map(MC212_files, assess_bad_oscillators) %>% 
   #   bind_rows(.id="cell")
@@ -176,8 +176,8 @@ assess_and_compare_files <- function(lineage_str,file_paths){
     theme_bw() + 
     labs(x="Cell lineage",y="DAP (um)")
   plt
-  ggsave(here::here("plots/deviation_from_average_position.eps"),
-         width=6,height=4)
+  #ggsave(here::here("plots/deviation_from_average_position.eps"),
+  #       width=6,height=4)
   
   # q1 <- inner_join(directional_correlation_df,bad_oscillators_df,
   #            by=c("cell","SisterPairID","lineage")) %>% 

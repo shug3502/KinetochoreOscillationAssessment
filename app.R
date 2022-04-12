@@ -1,65 +1,17 @@
 library(shiny)
 library(ggplot2)
 
-#  ui <- fluidPage(
-#    textInput("caption", "Caption", ""),
-#    verbatimTextOutput("value")
-#  )
-#  server <- function(input, output) {
-#    output$value <- renderText("FRED") #{ input$caption })
-#  }
-#  shinyApp(ui, server)
-# 
-# # creating sample files to upload
-# 
-# ui <- fluidPage(
-#   sidebarLayout(
-#     sidebarPanel(
-#       fileInput(
-#         inputId = "files", 
-#         label = "Choose CSV File", 
-#         multiple = TRUE,
-#         accept = c("text/csv",
-#                    "text/comma-separated-values,text/plain",
-#                    ".csv")
-#       )
-#     ),
-#     mainPanel(
-#       tableOutput("contents")
-#     )
-#   )
-# )
-# 
-# server <- function(input, output) {
-#   output$contents <- renderTable({
-#     req(input$files)
-#     upload = list()
-#     
-#     for(nr in 1:length(input$files[, 1])){
-#       upload[[nr]] <- read.csv(
-#         file = input$files[[nr, 'datapath']]
-#       )
-#     }
-#     
-#     return(upload)
-#   })
-# }
-# 
-# shinyApp(ui, server)
-# 
-# 
-# ########
 
 source('assess.R')
 
 ui <- fluidPage(
   
-  titlePanel("Tabsets"),
+  titlePanel("Knetochore Oscsillation Assessment App"),
   
   sidebarLayout(
     
     sidebarPanel(
-      textInput("lineage", "Name of cell line", "eg. MC191"),
+      textInput("lineage", "Input name of cell line", "eg. MC191"),
       verbatimTextOutput("value"),
       fileInput(
         inputId = "files", 
@@ -91,7 +43,7 @@ server <- function(input, output) {
     print(upload_paths)
     assess_and_compare_files(input$lineage,upload_paths)
   })
-  output$summary <- renderText("THANK YOU FOR USING THIS APP")
+  output$summary <- renderText("THANK YOU FOR USING THIS APP! (Created by Jonathan U Harrison 2022-04-11)")
 }
 
 shinyApp(ui, server)
